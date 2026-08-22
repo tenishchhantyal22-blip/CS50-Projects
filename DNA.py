@@ -3,12 +3,12 @@ import sys
 
 
 def main():
-
     # TODO: Check for command-line usage
     if len(sys.argv) != 3:
         sys.exit("Usage: python dna.py data.csv sequence.txt")
 
     # TODO: Read database file into a variable
+    database = []
     with open(sys.argv[1], "r") as database_file:
         reader = csv.DictReader(database_file)
         database = [row for row in reader]
@@ -26,16 +26,17 @@ def main():
 
     # TODO: Check database for matching profiles
     for row in database:
-    match = True
-    for key in row.keys():
+        match = True
+        for key in row.keys():
             if key == "name":
                 continue
             if int(row[key]) != str_counts[key]:
                 match = False
                 break
-    if match:
+        if match:
                 print(row["name"])
                 return
+
     print("No match")
 
 
@@ -46,6 +47,7 @@ def longest_match(sequence, subsequence):
     longest_run = 0
     subsequence_length = len(subsequence)
     sequence_length = len(sequence)
+
 
     # Check each character in sequence for most consecutive runs of subsequence
     for i in range(sequence_length):
